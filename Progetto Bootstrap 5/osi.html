@@ -1,318 +1,222 @@
 <!DOCTYPE html>
 <html lang="it">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modello OSI</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-  </head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Home</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="socket.html">Socket</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="osi.html">Modello OSI</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="tcpUdp.html">TCP vs UDP</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="glossario.html">Glossario</a>
-            </li>
-          </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modello OSI</title>
+  <!-- Aggiunta del foglio di stile di Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+</head>
+
+<body>
+  <!-- Barra di navigazione -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">Home</a>
+      <!-- Bottone per il menu mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="socket.html">Socket</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="osi.html">Modello OSI</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tcpUdp.html">TCP vs UDP</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="glossario.html">Glossario</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sezione principale: introduzione al Modello OSI -->
+  <div class="container mt-3">
+    <h1>Modello ISO/OSI</h1>
+    <p>
+      Il Modello
+      <span id="tool" data-bs-toggle="tooltip" data-bs-placement="top"
+        title="(Open Systems Interconnection)"><strong>ISO OSI</strong></span>
+      è un modello concettuale che definisce il modo in cui le reti inviano i
+      dati dal mittente al destinatario. Il modello è utilizzato per
+      descrivere ogni componente nell'ambito della comunicazione dei dati così
+      da permettere la definizione di regole e standard riguardo alle
+      applicazioni e all'infrastruttura di rete. Il modello OSI contiene sette
+      livelli disposti concettualmente dal basso verso l'alto. I livelli ISO
+      OSI sono:
+    </p>
+  </div>
+
+  <!-- Accordion che mostra i vari livelli del Modello OSI -->
+  <div class="container mt-1">
+    <div class="accordion accordion-flush" id="accordionLivelli">
+      <!-- Livello 1: Fisico -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello1">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            Livello 1
+          </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-livello1"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Fisico</strong> <br />
+            Si occupa della strumentazione fisica per il trasferimento dei dati
+            (cavi, fibre ottiche, segnali elettrici). Stabilisce anche gli
+            standard per la trasmissione.
+          </div>
         </div>
       </div>
-    </nav>
-    <div class="container mt-3">
-      <h1>Modello ISO/OSI</h1>
-      <p>
-        Il Modello
-        <span
-          id="tool"
-          data-bs-toggle="tooltip"
-          data-bs-placement="top"
-          title="(Open Systems Interconnection)"
-          ><strong>ISO OSI</strong></span
-        >
-        è un modello concettuale che definisce il modo in cui le reti inviano i
-        dati dal mittente al destinatario. Il modello è utilizzato per
-        descrivere ogni componente nell'ambito della comunicazione dei dati così
-        da permettere la definizione di regole e standard riguardo alle
-        applicazioni e all'infrastruttura di rete. Il modello OSI contiene sette
-        livelli disposti concettualmente dal basso verso l'alto. I livelli ISO
-        OSI sono:
-      </p>
-    </div>
-    <div class="container mt-1">
-      <div class="accordion accordion-flush" id="accordionLivelli">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello1">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseOne"
-              aria-expanded="false"
-              aria-controls="flush-collapseOne"
-            >
-              Livello 1
-            </button>
-          </h2>
-          <div
-            id="flush-collapseOne"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello1"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Fisico</strong> <br />
-              Come il nome suggerisce, il livello fisico si occupa della
-              strumentazione che consente il trasferimento dei dati, come cavi.
-              Gli standard per la trasmissione di rete sono essenziali in questo
-              livello. Senza tali standard, la trasmissione tra produttori di
-              dispositivi differenti sarebbe impossibile.
-            </div>
+
+      <!-- Livello 2: Collegamento Dati -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello2">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+            Livello 2
+          </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-livello2"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Collegamento</strong> <br />
+            Gestisce la trasmissione dei dati su una rete locale, trasformando
+            i pacchetti in frame e gestendo errori e flusso dei dati.
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello2">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseTwo"
-              aria-expanded="false"
-              aria-controls="flush-collapseTwo"
-            >
-              Livello 2
-            </button>
-          </h2>
-          <div
-            id="flush-collapseTwo"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello2"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Collegamento</strong> <br />
-              Dati Il livello rete facilita la comunicazione tra reti
-              differenti, ma il livello collegamento dati si occupa di
-              trasferire informazioni sulla stessa rete. Il livello collegamento
-              dati trasforma i pacchetti ricevuti dal livello rete in frame.
-              Come il livello rete, anche il livello collegamento dati è
-              responsabile del controllo degli errori e del flusso dei dati per
-              assicurare che il trasferimento vada a buon fine.
-            </div>
+      </div>
+
+      <!-- Livello 3: Rete -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello3">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+            Livello 3
+          </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-livello3"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Rete</strong> <br />
+            Gestisce il trasferimento dei dati tra diverse reti. Si occupa di
+            segmentare i dati in pacchetti e di indirizzarli correttamente.
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello3">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseThree"
-              aria-expanded="false"
-              aria-controls="flush-collapseThree"
-            >
-              Livello 3
-            </button>
-          </h2>
-          <div
-            id="flush-collapseThree"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello3"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Rete</strong> <br />Il livello rete si occupa
-              di suddividere i dati sul dispositivo del mittente e riassemblarli
-              sul dispositivo del destinatario quando la trasmissione avviene
-              attraverso due reti differenti. Quando invece la comunicazione
-              avviene all'interno della stessa rete, il livello rete non è
-              necessario. Quando i dati viaggiano attraverso reti differenti, il
-              livello rete si occupa di creare piccoli pacchetti di dati inviati
-              a destinazione, e ricostruiti poi sul dispositivo del
-              destinatario.
-            </div>
+      </div>
+
+      <!-- Livello 4: Trasporto -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello4">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+            Livello 4
+          </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-livello4"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Trasporto</strong> <br />
+            Si occupa di segmentare i dati in pacchetti più piccoli, gestire
+            il controllo degli errori e assicurare il corretto trasferimento.
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello4">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseFour"
-              aria-expanded="false"
-              aria-controls="flush-collapseFour"
-            >
-              Livello 4
-            </button>
-          </h2>
-          <div
-            id="flush-collapseFour"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello4"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Trasporto</strong> <br />Il livello OSI
-              Trasporto è responsabile del prendere i dati e spezzettarli in
-              pezzi più piccoli. Quando i dati vengono trasferiti attraverso la
-              rete, non sono trasferiti come un unico pacchetto. Per rendere i
-              trasferimenti più veloci ed efficienti. Questi "segmenti"
-              contengono le informazioni relative alle intestazioni che
-              consentono il riassemblaggio sul dispositivo ricevente. I dati
-              segmentati includono il controllo degli errori, per segnalare al
-              livello sessione di ristabilire la connessione nel caso in cui dei
-              pacchetti non vengano completamente trasferiti al destinatario.
-            </div>
+      </div>
+
+      <!-- Livello 5: Sessione -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello5">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+            Livello 5
+          </button>
+        </h2>
+        <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-livello5"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Sessione</strong> <br />
+            Gestisce le sessioni di comunicazione tra dispositivi, garantendo
+            che i dati vengano trasferiti correttamente durante l'intera
+            connessione.
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello5">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseFive"
-              aria-expanded="false"
-              aria-controls="flush-collapseFive"
-            >
-              Livello 5
-            </button>
-          </h2>
-          <div
-            id="flush-collapseFive"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello5"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Sessione</strong> <br />Per poter comunicare da
-              un dispositivo ad un altro, un'applicazione deve prima creare una
-              sessione. La sessione è unica per ogni utente e serve ad
-              identificare l'utente sul server remoto. La sessione deve rimanere
-              aperta abbastanza a lungo da poter permettere ai dati di essere
-              trasferiti, ma immediatamente chiusa una volta completato il
-              trasferimento. Quando vengono trasferiti grandi volumi di dati, la
-              sessione deve assicurare che il file sia stato completamente
-              trasferito, ed eventualmente ritrasmetterlo nel caso in cui i dati
-              risultino incompleti. Questo tipo di trasferimento rende la
-              comunicazione di rete più efficiente anziché sprecare risorse
-              ritrasmettendo nuovamente l'intero file.
-            </div>
+      </div>
+
+      <!-- Livello 6: Presentazione -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello6">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+            Livello 6
+          </button>
+        </h2>
+        <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-livello6"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Presentazione</strong> <br />
+            Si occupa di formattare, criptare e comprimere i dati per una
+            corretta visualizzazione.
           </div>
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello6">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseSix"
-              aria-expanded="false"
-              aria-controls="flush-collapseSix"
-            >
-              Livello 6
-            </button>
-          </h2>
-          <div
-            id="flush-collapseSix"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello6"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Presentazione</strong> <br />
-              il livello presentazione è quello che prepara i dati affinché
-              possano essere mostrati agli utenti. È comune per due applicazioni
-              differenti utilizzare la codifica. Ad esempio, la comunicazione
-              con un web server tramite HTTPS utilizza informazioni
-              crittografate. Il livello presentazione è responsabile per la
-              codifica e decodifica delle informazioni affinché possano essere
-              mostrate in chiaro. Il livello presentazione è anche responsabile
-              per la compressione e decompressione dei dati quando si spostano
-              da un dispositivo a un altro.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-livello7">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#flush-collapseSeven"
-              aria-expanded="false"
-              aria-controls="flush-collapseSeven"
-            >
-              Livello 7
-            </button>
-          </h2>
-          <div
-            id="flush-collapseSeven"
-            class="accordion-collapse collapse"
-            aria-labelledby="flush-livello7"
-            data-bs-parent="#accordionLivelli"
-          >
-            <div class="accordion-body">
-              <strong>Il Livello Applicazione</strong> <br />
-              Il livello 7 è quello con cui la maggior parte delle persone ha
-              familiarità perché comunica direttamente con l'utente.
-              Un'applicazione che gira su un dispositivo può comunicare con
-              altri livelli OSI, ma l'interfaccia viene eseguita sul livello 7.
-              Quando un messaggio viene ricevuto dal client, il livello
-              applicazione è ciò che lo presenta agli occhi dell'utente. I
-              protocolli di applicazione includono l'SMTP (Simple Mail Transfer
-              Protocol) e l'HTTP, che costituisce il protocollo per la
-              comunicazione tra browser e web server.
-            </div>
+      </div>
+
+      <!-- Livello 7: Applicazione -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-livello7">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+            Livello 7
+          </button>
+        </h2>
+        <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-livello7"
+          data-bs-parent="#accordionLivelli">
+          <div class="accordion-body">
+            <strong>Il Livello Applicazione</strong> <br />
+            È l'interfaccia che permette all'utente di interagire direttamente
+            con il sistema. Gestisce le comunicazioni finali, come HTTP e SMTP.
           </div>
         </div>
       </div>
     </div>
-    <div class="alert alert-primary container mt-5" role="alert">
-      Per maggiori informazioni clicca
-      <a
-        href="https://www.proofpoint.com/it/threat-reference/osi-model"
-        target="_blank"
-        class="alert-link"
-        >qui</a
-      >.
-    </div>
-    <footer class="bg-light text-center py-3">
-      <p>Yongkang Hu - Classe 5F</p>
-    </footer>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"
-    ></script>
-    <script src="script.js"></script>
-  </body>
+  </div>
+
+  <!-- Sezione con un link per maggiori informazioni -->
+  <div class="alert alert-primary container mt-5" role="alert">
+    Per maggiori informazioni clicca
+    <a href="https://www.proofpoint.com/it/threat-reference/osi-model" target="_blank" class="alert-link">qui</a>.
+  </div>
+
+  <!-- Footer della pagina -->
+  <footer class="bg-light text-center py-3">
+    <p>Yongkang Hu - Classe 5F</p>
+  </footer>
+
+  <!-- Script per l'attivazione dei tooltip -->
+  <script>
+    var tooltipTriggerList = Array.from(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+      new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
+
+  <!-- Aggiunta del JavaScript di Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-SZWEIjvAtUeLrggnlm/RHlS6/qGZem0dGo4Kj7JwPOmkHj2Uogzml0my4M0l4+0I"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+    integrity="sha384-pzjw8f+ua7Kw1TIq0hGTUqf4C6KL6TOzEpyUt0gqV7nBOmn1BIm2g5eG9XfPw07G"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

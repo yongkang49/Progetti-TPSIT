@@ -5,21 +5,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
+  <!-- Link a Bootstrap CSS per il design responsive e gli stili predefiniti -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <!-- Link al foglio di stile personalizzato per aggiungere eventuali modifiche -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <!-- Navbar per la navigazione tra le diverse sezioni del sito -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">Home</a>
+      <!-- Pulsante di toggle per dispositivi mobili -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- Collegamenti per le altre pagine del sito -->
           <li class="nav-item">
             <a class="nav-link" href="socket.html">Socket</a>
           </li>
@@ -37,18 +42,22 @@
     </div>
   </nav>
 
-  <div class="container mt-5 ">
+  <!-- Sezione principale che accoglie l'utente -->
+  <div class="container mt-5">
     <h1>Benvenuto nel sito!</h1>
     <p>
-      In questo sito spigheremo il funzionamento delle
+      In questo sito spiegheremo il funzionamento delle
       <strong>socket</strong>, il <strong>modello OSI</strong> e le differenze
       tra il protocollo <strong>TCP</strong> e
       <strong>UDP</strong>
     </p>
   </div>
+
+  <!-- Sezione dedicata al contenuto delle socket -->
   <div class="container mt-5">
     <div class="row g-0 bg-light position-relative">
       <div class="col-md-6 mb-md-0 p-md-4">
+        <!-- Immagine associata al tema delle socket -->
         <img src="Socket.jpg" class="img-fluid" alt="immagine socket">
       </div>
       <div class="col-md-6 p-4 ps-md-0">
@@ -56,42 +65,59 @@
         <p>Un <strong>socket</strong> è un oggetto <strong>software</strong> che
           permette l'<strong>invio</strong> e la <strong>ricezione</strong> di
           dati, tra host remoti o tra processi locali. </p>
+        <!-- Link per approfondire l'argomento delle socket -->
         <a href="socket.html">Approfondisci</a>
       </div>
     </div>
   </div>
+
+  <!-- Sezione dedicata al Modello OSI -->
   <div class="container mt-5">
     <div class="row g-0 bg-light position-relative">
       <div class="col-md-6 mb-md-0 p-md-4">
+        <!-- Immagine associata al modello OSI -->
         <img src="Osi.jpg" class="img-fluid" alt="immagine OSI">
       </div>
       <div class="col-md-6 p-4 ps-md-0">
         <h5 class="mt-0">Modello OSI</h5>
-        <p>Il Modello ISO OSI è un modello concettuale che definisce il modo in cui le <strong>reti</strong> inviano i dati dal <strong>mittente</strong>
-          al <strong>destinazione</strong>. Il modello è utilizzato per descrivere ogni componente nell'ambito della comunicazione dei
-          dati così da permettere la definizione di <strong>regole</strong> e standard riguardo alle applicazioni e all'infrastruttura di
+        <p>Il Modello ISO OSI è un modello concettuale che definisce il modo in cui le <strong>reti</strong> inviano i
+          dati dal <strong>mittente</strong>
+          al <strong>destinatario</strong>. Il modello è utilizzato per descrivere ogni componente nell'ambito della
+          comunicazione dei
+          dati così da permettere la definizione di <strong>regole</strong> e standard riguardo alle applicazioni e
+          all'infrastruttura di
           rete. Il modello OSI contiene sette livelli disposti concettualmente dal basso verso l'alto...</p>
+        <!-- Link per approfondire il modello OSI -->
         <a href="osi.html">Approfondisci</a>
       </div>
     </div>
   </div>
+
+  <!-- Sezione dedicata alla comparazione tra TCP e UDP -->
   <div class="container mt-5">
     <div class="row g-0 bg-light position-relative">
       <div class="col-md-6 mb-md-0 p-md-4">
+        <!-- Immagine associata alla comparazione TCP UDP -->
         <img src="TcpUdp.png" class="img-fluid" alt="immagine TCP UDP">
       </div>
       <div class="col-md-6 p-4 ps-md-0">
         <h5 class="mt-0">TCP vs UDP</h5>
         <p>Il protocollo TCP (Transmission Control Protocol) e il protocollo UDP (User Datagram Protocol) vengono
-          utilizzati per instradare un <strong>paccheto di dati</strong> al processo corretto. Esistono numerosi numeri di <strong>porte</strong> e sono
+          utilizzati per instradare un <strong>pacchetto di dati</strong> al processo corretto. Esistono numerosi numeri
+          di <strong>porte</strong> e sono
           una parte essenziale del funzionamento di Internet...</p>
+        <!-- Link per approfondire le differenze tra TCP e UDP -->
         <a href="tcpUdp.html">Approfondisci</a>
       </div>
     </div>
   </div>
+
+  <!-- Footer con i crediti -->
   <footer id="fondo" class="mt-5 bg-light text-center py-3">
     <p>Yongkang Hu - Classe 5F</p>
   </footer>
+
+  <!-- Inclusione dello script Bootstrap per il funzionamento delle funzionalità interattive -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
