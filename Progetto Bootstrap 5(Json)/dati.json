@@ -1,0 +1,248 @@
+{
+  "paginaHome": {
+    "titoloHome": "Benvenuto nel sito!",
+    "introduzioneHome": "In questo sito spigheremo il funzionamento delle <strong>socket</strong>, il <strong>modello OSI</strong> e le differenze tra il protocollo <strong>TCP</strong> e <strong>UDP</strong>",
+    "blocks": [
+      {
+        "titolo": "Socket",
+        "descrizione": "Un socket è un oggetto software che permette l'invio e la ricezione di dati, tra host remoti o tra processi locali.",
+        "link": "socket.html",
+        "image": "image/Socket.jpg",
+        "alt": "image Socket"
+      },
+      {
+        "titolo": "Modello OSI",
+        "descrizione": "Il Modello ISO OSI è un modello concettuale che definisce il modo in cui le reti inviano i dati dal mittente al destinatario. Il modello è utilizzato per descrivere ogni componente nell'ambito della comunicazione dei dati così da permettere la definizione di regole e standard riguardo alle applicazioni e all'infrastruttura di rete. Il modello OSI contiene sette livelli disposti concettualmente dal basso verso l'alto.",
+        "link": "osi.html",
+        "image": "image/Osi.jpg",
+        "alt": "image Osi"
+      },
+      {
+        "titolo": "TCP vs UDP",
+        "descrizione": "Il protocollo TCP (Transmission Control Protocol) e il protocollo UDP (User Datagram Protocol) vengono utilizzati per instradare un pacchetto di dati al processo corretto. Esistono numerosi numeri di porta e sono una parte essenziale del funzionamento di Internet.",
+        "link": "tcpUdp.html",
+        "image": "image/TcpUdp.png",
+        "alt": "image Tcp Udp"
+      }
+    ]
+  },
+  "paginaOSI": {
+    "titoloOSI": "Modello OSI",
+    "introduzioneOSI": "Il Modello <span id='tool' data-bs-toggle='tooltip' data-bs-placement='top' title='(Open Systems Interconnection)'><strong>OSI</strong></span> è un modello concettuale che definisce il modo in cui le reti inviano i dati dal mittente al destinatario. Il modello è utilizzato per descrivere ogni componente nell'ambito della comunicazione dei dati così da permettere la definizione di regole e standard riguardo alle applicazioni e all'infrastruttura di rete. Il modello OSI contiene sette livelli disposti concettualmente dal basso verso l'alto. I livelli ISO OSI sono:",
+    "livelli": {
+      "livello1": {
+        "titolo": "Livello 1",
+        "contenuto": "<strong>Il Livello Fisico</strong> <br />Come il nome suggerisce, il livello fisico si occupa della strumentazione che consente il trasferimento dei dati, come cavi. Gli standard per la trasmissione di rete sono essenziali in questo livello. Senza tali standard, la trasmissione tra produttori di dispositivi differenti sarebbe impossibile."
+      },
+      "livello2": {
+        "titolo": "Livello 2",
+        "contenuto": "<strong>Il Livello Collegamento</strong> <br />Dati Il livello rete facilita la comunicazione tra reti differenti, ma il livello collegamento dati si occupa di trasferire informazioni sulla stessa rete. Il livello collegamento dati trasforma i pacchetti ricevuti dal livello rete in frame. Come il livello rete, anche il livello collegamento dati è responsabile del controllo degli errori e del flusso dei dati per assicurare che il trasferimento vada a buon fine."
+      },
+      "livello3": {
+        "titolo": "Livello 3",
+        "contenuto": "<strong>Il Livello Rete</strong> <br />Il livello rete si occupa di suddividere i dati sul dispositivo del mittente e riassemblarli sul dispositivo del destinatario quando la trasmissione avviene attraverso due reti differenti. Quando invece la comunicazione avviene all'interno della stessa rete, il livello rete non è necessario. Quando i dati viaggiano attraverso reti differenti, il livello rete si occupa di creare piccoli pacchetti di dati inviati a destinazione, e ricostruiti poi sul dispositivo del destinatario."
+      },
+      "livello4": {
+        "titolo": "Livello 4",
+        "contenuto": "<strong>Il Livello Trasporto</strong> <br />Il livello OSI Trasporto è responsabile del prendere i dati e spezzettarli in pezzi più piccoli. Quando i dati vengono trasferiti attraverso la rete, non sono trasferiti come un unico pacchetto. Per rendere i trasferimenti più veloci ed efficienti. Questi 'segmenti' contengono le informazioni relative alle intestazioni che consentono il riassemblaggio sul dispositivo ricevente. I dati segmentati includono il controllo degli errori, per segnalare al livello sessione di ristabilire la connessione nel caso in cui dei pacchetti non vengano completamente trasferiti al destinatario."
+      },
+      "livello5": {
+        "titolo": "Livello 5",
+        "contenuto": "<strong>Il Livello Sessione</strong> <br />Per poter comunicare da un dispositivo ad un altro, un'applicazione deve prima creare una sessione. La sessione è unica per ogni utente e serve ad identificare l'utente sul server remoto. La sessione deve rimanere aperta abbastanza a lungo da poter permettere ai dati di essere trasferiti, ma immediatamente chiusa una volta completato il trasferimento. Quando vengono trasferiti grandi volumi di dati, la sessione deve assicurare che il file sia stato completamente trasferito, ed eventualmente ritrasmetterlo nel caso in cui i dati risultino incompleti."
+      },
+      "livello6": {
+        "titolo": "Livello 6",
+        "contenuto": "<strong>Il Livello Presentazione</strong> <br />Il livello presentazione è quello che prepara i dati affinché possano essere mostrati agli utenti. È comune per due applicazioni differenti utilizzare la codifica. Ad esempio, la comunicazione con un web server tramite HTTPS utilizza informazioni crittografate. Il livello presentazione è responsabile per la codifica e decodifica delle informazioni affinché possano essere mostrate in chiaro. Il livello presentazione è anche responsabile per la compressione e decompressione dei dati quando si spostano da un dispositivo a un altro."
+      },
+      "livello7": {
+        "titolo": "Livello 7",
+        "contenuto": "<strong>Il Livello Applicazione</strong> <br />Il livello 7 è quello con cui la maggior parte delle persone ha familiarità perché comunica direttamente con l'utente. Un'applicazione che gira su un dispositivo può comunicare con altri livelli OSI, ma l'interfaccia viene eseguita sul livello 7. Quando un messaggio viene ricevuto dal client, il livello applicazione è ciò che lo presenta agli occhi dell'utente. I protocolli di applicazione includono l'SMTP (Simple Mail Transfer Protocol) e l'HTTP, che costituisce il protocollo per la comunicazione tra browser e web server."
+      }
+    }
+  },
+  "paginaSocket": {
+    "titolo": "Cos'è una Socket?",
+    "titolo2": "Tipologie di socket",
+    "titolo3": "Processo di communicazione (stream socket)",
+    "introduzione": "Un <strong>socket</strong> è un oggetto <strong>software</strong> che permette l'<strong>invio</strong> e la <strong>ricezione</strong> di dati, tra host <span data-bs-toggle='tooltip' data-bs-placement='top' title='(tramite una rete)'><strong>remoti</strong></span> o tra <span data-bs-toggle='tooltip' data-bs-placement='top' title='(Inter-Process Communication)'><strong>processi locali</strong></span>. Più precisamente, il concetto di socket si basa sul modello Input/Output su file di Unix, quindi sulle operazioni di open, read, write e close; l'utilizzo, infatti, avviene secondo le stesse modalità, aggiungendo i parametri utili alla comunicazione, quali indirizzi, numeri di porta e protocolli.",
+    "tipologie": [
+      {
+        "titolo": "Stream",
+        "descrizione": "Orientati alla connessione (connection-oriented), basati su protocolli affidabili come TCP o SCTP."
+      },
+      {
+        "titolo": "Datagram",
+        "descrizione": "Non orientati alla connessione (connection-less), basati sul protocollo veloce ma inaffidabile UDP."
+      },
+      {
+        "titolo": "Raw socket",
+        "descrizione": "Il livello di trasporto viene bypassato, e l'header è accessibile al livello applicativo."
+      }
+    ],
+    "processo": [
+      {
+        "passo": "Passo 1",
+        "contenuto": "Creazione dei socket: Client e server creano i loro rispettivi <strong>socket</strong>, e il <strong>server</strong> lo pone in <strong>ascolto</strong> su una <strong>porta</strong>. Dato che il server può creare più connessioni con client diversi (ma anche con lo stesso), ha bisogno di una <strong>coda</strong> per gestire le varie richieste."
+      },
+      {
+        "passo": "Passo 2",
+        "contenuto": "Richiesta di connessione: Il client effettua una richiesta di connessione verso il server. Da notare che possiamo avere due numeri di porta diversi, perché una potrebbe essere dedicata solo al traffico in uscita, l'altra solo in entrata; questo dipende dalla configurazione dell'host."
+      },
+      {
+        "passo": "Passo 3",
+        "contenuto": "Comunicazione: Ora client e server comunicano attraverso un canale virtuale, tra il socket del primo ed uno nuovo del server, creato appositamente per il flusso dei dati di questa connessione: data socket."
+      },
+      {
+        "passo": "Passo 4",
+        "contenuto": "Chiusura della connessione: Essendo il TCP un protocollo orientato alla connessione, quando non si ha più la necessità di comunicare, il client lo comunica al server, che ne deistanzia il data socket. La connessione viene così chiusa."
+      }
+    ]
+  },
+  "paginaTcpUdp": {
+    "titolo": "TCP vs UDP",
+    "introduzione": "Il protocollo <strong>TCP</strong> (Transmission Control Protocol) e il protocollo <strong>UDP</strong> (User Datagram Protocol) vengono utilizzati per instradare un pacchetto di dati al processo corretto. Esistono numerosi numeri di porta e sono una parte essenziale del funzionamento di Internet.",
+    "tcp": {
+      "titolo": "TCP",
+      "caratteristiche": [
+        {
+          "nome": "Connessione",
+          "descrizione": "Orientato alla connessione, stabilisce un handshake a tre vie prima del trasferimento dei dati."
+        },
+        {
+          "nome": "Affidabilità",
+          "descrizione": "L’architettura dei pacchetti garantisce la consegna nell’ordine corretto."
+        },
+        {
+          "nome": "Velocità",
+          "descrizione": "Più lento di UDP grazie ai meccanismi di controllo degli errori."
+        },
+        {
+          "nome": "Controllo del flusso di dati",
+          "descrizione": "Il controllo del flusso è gestito attraverso tecniche di windowing per regolare il flusso dei dati."
+        },
+        {
+          "nome": "Utilizzo",
+          "descrizione": "Utilizzato nei casi in cui la trasmissione affidabile dei dati è fondamentale (ad esempio, navigazione web, e-mail)."
+        },
+        {
+          "nome": "Dimensione dell’header",
+          "descrizione": "Dimensione dell’header maggiore (minimo 20 byte)."
+        },
+        {
+          "nome": "Sequenziamento",
+          "descrizione": "Sequenzia i pacchetti di dati per garantire una consegna ordinata."
+        }
+      ]
+    },
+    "udp": {
+      "titolo": "UDP",
+      "caratteristiche": [
+        {
+          "nome": "Connessione",
+          "descrizione": "Senza connessione, non stabilisce una connessione prima di inviare i dati."
+        },
+        {
+          "nome": "Affidabilità",
+          "descrizione": "Non garantisce la consegna, l’ordine o il controllo degli errori."
+        },
+        {
+          "nome": "Velocità",
+          "descrizione": "Veloce."
+        },
+        {
+          "nome": "Controllo del flusso di dati",
+          "descrizione": "Nessun controllo di flusso; invia i dati alla velocità che il mittente può generare e che la rete può gestire."
+        },
+        {
+          "nome": "Utilizzo",
+          "descrizione": "Utilizzato per applicazioni sensibili al tempo in cui la perdita di alcuni dati è tollerabile (ad esempio, streaming audio/video in diretta)."
+        },
+        {
+          "nome": "Dimensione dell’header",
+          "descrizione": "Dimensione dell’header ridotta (8 byte)."
+        },
+        {
+          "nome": "Sequenziamento",
+          "descrizione": "Non fornisce sequenziamento dei pacchetti."
+        }
+      ]
+    }
+  },
+  "paginaGlossario": {
+    "titolo": "Glossario dei termini usati nel sito",
+    "categorie": [
+      {
+        "link": "socket.html",
+        "termini": [
+          {
+            "termine": "Modello Input/Output su file di Unix",
+            "definizione": "In Unix, tutto è rappresentato come un file, incluso l'I/O. Dispositivi, socket e canali sono trattati come file e possono essere letti o scritti tramite i descrittori di file. Questo modello permette di interagire con risorse diverse (come tastiere, schermi o file system) in modo uniforme usando chiamate standard come read() e write()."
+          },
+          {
+            "termine": "Server",
+            "definizione": "Un server è un programma o un dispositivo che offre servizi o risorse a uno o più client attraverso una rete."
+          },
+          {
+            "termine": "Client",
+            "definizione": "Un client è un programma o dispositivo che invia richieste a un server per accedere a servizi o risorse."
+          },
+          {
+            "termine": "Canale virtuale",
+            "definizione": "Un canale virtuale è un mezzo logico per la comunicazione tra due entità su una rete o un sistema."
+          }
+        ]
+      },
+      {
+        "link": "osi.html",
+        "termini": [
+          {
+            "termine": "Pacchetti",
+            "definizione": "Unità base di trasmissione di dati in una rete."
+          },
+          {
+            "termine": "Dati",
+            "definizione": "Informazioni digitali, organizzate o non strutturate, che possono essere trasmesse, archiviate o elaborate."
+          },
+          {
+            "termine": "Flusso dei dati",
+            "definizione": "Sequenza continua di dati trasmessi tra due entità in tempo reale o quasi reale."
+          },
+          {
+            "termine": "Sessione",
+            "definizione": "Una connessione temporanea tra due dispositivi o applicazioni che consente lo scambio di dati."
+          },
+          {
+            "termine": "HTTPS",
+            "definizione": "(HyperText Transfer Protocol Secure) Protocollo di comunicazione sicuro per la trasmissione di dati su internet."
+          },
+          {
+            "termine": "Crittografia",
+            "definizione": "Processo di conversione di dati leggibili in un formato illeggibile per proteggere le informazioni."
+          }
+        ]
+      },
+      {
+        "link": "tcpUdp.html",
+        "termini": [
+          {
+            "termine": "Handshake",
+            "definizione": "Processo di scambio iniziale di segnali o messaggi per stabilire una connessione."
+          },
+          {
+            "termine": "Affidabilità",
+            "definizione": "Capacità di un protocollo o sistema di garantire che i dati siano consegnati correttamente."
+          },
+          {
+            "termine": "Tecniche di Windowing",
+            "definizione": "Metodo usato nei protocolli di rete per controllare il flusso di dati."
+          },
+          {
+            "termine": "Header",
+            "definizione": "Parte iniziale di un pacchetto che contiene metadati necessari per il corretto instradamento."
+          }
+        ]
+      }
+    ]
+  },
+  "footer": "Yongkang Hu - Classe 5F"
+}
