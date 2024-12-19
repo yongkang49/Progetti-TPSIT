@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Question</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="question-title">Loading Question...</h1>
+      <p id="question-prompt">Please wait while we load your question.</p>
+
+      <!-- For questions 4 and 5, we will show multiple choice options -->
+      <div id="multiple-choice-options" style="display: none">
+        <!-- Options will be dynamically inserted here -->
+      </div>
+
+      <!-- For other types of questions (open-ended), use a textarea -->
+      <textarea id="answer" rows="5" cols="40" style="display: none"></textarea>
+      <br /><br />
+      <button id="save-answer">Save Answer</button>
+      <a href="index.html" class="button">Back to Home</a>
+    </div>
+    <div class="timer">
+      <span id="timer-display">60:00</span>
+    </div>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <p>Hai terminato la prova!</p>
+        <button id="retry-button" class="modal-button">Riprova</button>
+      </div>
+    </div>
+
+    <script>
+      console.log("Question page loaded.");
+
+      // Define questions and answers
+      const questions = {
+        1: {
+          prompt: "Cosa si intende con il termine 'cloud computing'?",
+          type: "open", // Open-ended question
+        },
+        2: {
+          prompt:
+            "Cos'è un algoritmo di ordinamento e quali sono alcuni dei più comuni?",
+          type: "open", // Open-ended question
+        },
+        3: {
+          prompt:
+            "Cos'è una rete neurale artificiale e come viene utilizzata nell'intelligenza artificiale?",
+          type: "open", // Open-ended question
+        },
+        4: {
+          prompt: "Quale di queste è un tipo di memoria volatile?",
+          type: "multiple-choice", // Multiple-choice question
+          options: ["RAM", "ROM", "HDD", "SSD"],
+        },
+        5: {
+          prompt: "Cosa rappresenta l'acronimo 'IP' in un indirizzo di rete?",
+          type: "multiple-choice", // Multiple-choice question
+          options: [
+            "Internet Protocol",
+            "Internet Point",
+            "Internal Protocol",
+            "Intelligent Packet",
+          ],
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const params = new URLSearchParams(window.location.search);
+        const questionNumber = params.get("question");
+
+        if (!questionNumber || !questions[questionNumber]) {
+          document.getElementById("question-title").textContent =
+            "Error: No question specified!";
+          document.getElementById("question-prompt").textContent =
+            "Please return to the home page and select a question.";
+          document.getElementById("answer").style.display = "none";
+          document.getElementById("save-answer").style.display = "none";
+          return;
+        }
+
+        const question = questions[questionNumber];
+
+        // Set question title and prompt
+        document.getElementById(
+          "question-title"
+        ).textContent = `Question ${questionNumber}`;
+        document.getElementById("question-prompt").textContent =
+          question.prompt;
+
+        // Handle multiple choice or textarea input
+        if (question.type === "multiple-choice") {
+          document.getElementById("multiple-choice-options").style.display =
+            "block";
+          document.getElementById("answer").style.display = "none";
+
+          // Popola le opzioni multiple con innerHTML
+          document.getElementById("multiple-choice-options").innerHTML =
+            question.options
+              .map(
+                (option, index) => `
+              <label><input type="radio" name="answer" value="${String.fromCharCode(
+                65 + index
+              )}" /> ${option}</label><br />
+            `
+              )
+              .join("");
+
+          // Pre-seleziona la risposta salvata per le domande a scelta multipla
+          const savedAnswer = localStorage.getItem(`answer${questionNumber}`);
+          if (savedAnswer) {
+            const selectedRadio = document.querySelector(
+              `input[name="answer"][value="${savedAnswer}"]`
+            );
+            if (selectedRadio) selectedRadio.checked = true;
+          }
+        } else {
+          document.getElementById("multiple-choice-options").style.display =
+            "none";
+          document.getElementById("answer").style.display = "block";
+        }
+
+        // Save the answer when the user clicks the button
+        document.getElementById("save-answer").addEventListener("click", () => {
+          let answer;
+          if (question.type === "multiple-choice") {
+            // Get the selected answer for multiple-choice questions
+            const selectedOption = document.querySelector(
+              'input[name="answer"]:checked'
+            );
+            if (selectedOption) {
+              answer = selectedOption.value;
+            } else {
+              alert("Please select an answer.");
+              return;
+            }
+          } else {
+            // Get the answer from the textarea (open-ended questions)
+            answer = document.getElementById("answer").value;
+          }
+
+          // Save the answer to localStorage
+          localStorage.setItem(`answer${questionNumber}`, answer);
+          console.log(`Answer for Question ${questionNumber} saved:`, answer);
+          alert("Your answer has been saved.");
+        });
+      });
+    </script>
+  </body>
+</html>

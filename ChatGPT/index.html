@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Question Site</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome! Choose a question:</h1>
+      <a href="question.html?question=1" class="button">Question 1</a>
+      <a href="question.html?question=2" class="button">Question 2</a>
+      <a href="question.html?question=3" class="button">Question 3</a>
+      <br />
+      <a href="question.html?question=4" class="button">Question 4</a>
+      <a href="question.html?question=5" class="button">Question 5</a>
+      <button id="stop-timer" class="button">Fine</button>
+    </div>
+    <div class="timer">
+      <span id="timer-display">60:00</span>
+    </div>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <p>Hai terminato la prova!</p>
+        <button id="retry-button" class="modal-button">Riprova</button>
+      </div>
+    </div>
+  </body>
+</html>
