@@ -1,28 +1,3 @@
-// Recupera il carrello dal localStorage o inizializza un array vuoto
-let cart = [];
-
-// Funzione per aggiornare il carrello
-function updateCart() {
-    document.getElementById('cart-button').innerText = `Carrello (${cart.length})`;
-}
-
-// Funzione per mostrare il carrello nel modal
-function showCart() {
-    const cartItemsList = document.getElementById('cart-items');
-    //cartItemsList.innerHTML = ''; // Resetta il carrello
-    cart.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.name} - €${item.price.toFixed(2)}`;
-        cartItemsList.appendChild(li);
-        localStorage.setItem('cart', `${li}`);
-    });
-    document.getElementById('cart-modal').style.display = 'flex';
-}
-
-// Funzione per chiudere il modal
-function closeCart() {
-    document.getElementById('cart-modal').style.display = 'none';
-}
 
 // Funzione per caricare i prodotti con fetch
 function loadProducts() {
@@ -40,36 +15,34 @@ function loadProducts() {
             console.error('Errore:', error);
         });
 }
-// Funzione per aggiungere un prodotto al carrello
-function addToCart(product) {
-    cart.push(product);
-    updateCart();
-}
 
 // Funzione per generare e mostrare i prodotti sulla pagina
 function displayProducts(products) {
     const productContainer = document.getElementById('products-list');
+    productContainer.classList.add('row', 'g-3'); // Riduce lo spazio tra le carte
+
     products.forEach(product => {
         const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
+        productDiv.classList.add('col-6', 'col-md-4', 'col-lg-2'); // 6 per riga su desktop
+
         productDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>€${product.price.toFixed(2)}</p>
-            <button class="add-to-cart-button">Aggiungi al carrello</button>
+            <div class="card shadow-sm text-center">
+                <img src="${product.image}" class="card-img-top p-2" alt="${product.name}" style="height: 300px; object-fit: contain;">
+                <div class="card-body p-2">
+                    <h6 class="card-title">${product.name}</h6>
+                    <p class="text-success fw-bold small">€${product.price.toFixed(2)}</p>
+                    <a href="product.html?id=${product.id}" class="btn btn-sm btn-outline-primary w-100">Dettagli</a>
+                    <button class="btn btn-sm btn-success w-100 mt-1 add-to-cart-button">Aggiungi</button>
+                </div>
+            </div>
         `;
         
-        // Aggiungi l'evento "click" al pulsante "Aggiungi al carrello"
         const addButton = productDiv.querySelector('.add-to-cart-button');
-        addButton.addEventListener('click', () => addToCart(product)); // Passa l'oggetto prodotto direttamente
+        addButton.addEventListener('click', () => addToCart(product));
 
         productContainer.appendChild(productDiv);
     });
 }
-
-// Event listeners
-document.getElementById('cart-button').addEventListener('click', showCart);
-document.getElementById('close-cart').addEventListener('click', closeCart);
 
 let currentSlide = 0;
 const slides = document.querySelectorAll(".slide");
