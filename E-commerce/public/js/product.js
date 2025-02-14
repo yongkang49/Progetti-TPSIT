@@ -9,10 +9,9 @@ if (productId) {
             const product = products.find(p => p.id == productId);
             if (product) {
                 document.getElementById('product-image').src = product.image;
-                document.getElementById('product-name').innerText = product.name;
-                document.getElementById('product-price').innerText = `€${product.price.toFixed(2)}`;
-                document.getElementById('product-description').innerText = product.description;
-
+                document.getElementById('product-name').innerText = product.nome;
+                document.getElementById('product-price').innerText = `€${product.prezzo.toFixed(2)}`;
+                document.getElementById('product-description').innerText = product.descrizione;
                 document.getElementById('add-to-cart').addEventListener('click', () => {
                     addToCart(product);
                 });

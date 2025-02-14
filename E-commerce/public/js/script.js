@@ -27,12 +27,12 @@ function displayProducts(products) {
 
         productDiv.innerHTML = `
             <div class="card shadow-sm text-center">
-                <img src="${product.image}" class="card-img-top p-2" alt="${product.name}" style="height: 300px; object-fit: contain;">
+                <img src="${product.image}" class="card-img-top p-2" alt="${product.nome}" style="height: 300px; object-fit: contain;">
                 <div class="card-body p-2">
-                    <h6 class="card-title">${product.name}</h6>
-                    <p class="text-success fw-bold small">€${product.price.toFixed(2)}</p>
+                    <h6 class="card-title">${product.nome}</h6>
+                    <p class="text-success fw-bold small">€${product.prezzo.toFixed(2)}</p>
                     <a href="product.html?id=${product.id}" class="btn btn-sm btn-outline-primary w-100">Dettagli</a>
-                    <button class="btn btn-sm btn-success w-100 mt-1 add-to-cart-button">Aggiungi</button>
+                    <button class="btn btn-sm btn-success w-100 mt-1 add-to-cart-button">Aggiungi al carrello</button>
                 </div>
             </div>
         `;

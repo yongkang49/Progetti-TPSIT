@@ -4,10 +4,6 @@ body {
     padding: 0;
     background-color: #f4f4f4;
 }
-.container {
-    max-width: 600px;
-    margin-top: 50px;
-}
 
 .product-img {
     width: 100%;
