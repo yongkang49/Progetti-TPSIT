@@ -153,7 +153,6 @@ function applyCoupon() {
 }
 
 
-
 function removeFromCart(index) {
     cart.splice(index, 1); // Rimuove l'elemento dalla lista
     saveCartToStorage(); // Salva il carrello aggiornato nel localStorage
