@@ -1,4 +1,6 @@
 let cart = [];
+let couponData = { applied: false, code: null };
+
 // Funzione per aggiornare il carrello
 function updateCart() {
     document.getElementById('cart-button').innerText = `Carrello (${cart.length})`;
@@ -6,15 +8,44 @@ function updateCart() {
 }
 
 function loadCartFromStorage() {
+    // Carica il carrello
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
-        cart = JSON.parse(storedCart);
-        updateCart();
+        try {
+            cart = JSON.parse(storedCart);
+            if (!Array.isArray(cart)) cart = []; // Verifica che sia un array
+        } catch (error) {
+            console.error("Errore nel parsing del carrello:", error);
+            cart = [];
+        }
+    } else {
+        cart = [];
     }
+    
+    // Carica il coupon
+    const storedCoupon = localStorage.getItem('coupon');
+    if (storedCoupon) {
+        try {
+            couponData = JSON.parse(storedCoupon);
+        } catch (error) {
+            console.error("Errore nel parsing del coupon:", error);
+            couponData = { applied: false, code: null };
+        }
+    } else {
+        couponData = { applied: false, code: null };
+    }
+    
+    updateCart();
 }
+
+
 function saveCartToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
+function saveCouponToStorage() {
+    localStorage.setItem('coupon', JSON.stringify(couponData));
+}
+
 // Funzione per mostrare il carrello nel modal
 function showCart() {
     const cartItemsList = document.getElementById('cart-items');
@@ -43,7 +74,6 @@ function showCart() {
         // Pulsante per diminuire la quantità
         const decreaseButton = document.createElement('button');
         decreaseButton.textContent = '➖';
-        decreaseButton.style.textAlign = 'left';
         decreaseButton.style.marginLeft = '10px';
         decreaseButton.style.backgroundColor = 'white';
         decreaseButton.onclick = () => updateQuantity(index, item.quantita - 1);
@@ -72,12 +102,54 @@ function showCart() {
         totalPrice += item.prezzo * item.quantita;
     });
 
-    // Aggiunge il totale al carrello
+    // Se è stato applicato un coupon, applica lo sconto
+    if (couponData.applied && couponData.code) {
+        let discount = 0;
+        if (couponData.code === 'SCONTO10') {
+            discount = totalPrice * 0.10;
+        } else if (couponData.code === 'SCONTO20') {
+            discount = totalPrice * 0.20;
+        }
+        totalPrice -= discount;
+    }
+
+    // Totale
     const totalLi = document.createElement('li');
-    totalLi.innerHTML = `<strong>Totale: €${totalPrice.toFixed(2)}</strong>`;
+    totalLi.innerHTML = `<strong>Totale: €<span id='total-price'>${totalPrice.toFixed(2)}</span></strong>`;
     cartItemsList.appendChild(totalLi);
 
     document.getElementById('cart-modal').style.display = 'flex';
+}
+
+function applyCoupon() {
+    if (couponData.applied) {
+        alert("Hai già utilizzato un coupon!");
+        return;
+    }
+
+    const couponCode = document.getElementById('coupon-code').value;
+    let discountPercent = 0;
+    
+    if (couponCode === 'SCONTO10') {
+        discountPercent = 0.10;
+    } else if (couponCode === 'SCONTO20') {
+        discountPercent = 0.20;
+    } else {
+        alert("Codice coupon non valido!");
+        return;
+    }
+
+    // Aggiorna lo stato del coupon
+    couponData.applied = true;
+    couponData.code = couponCode;
+    saveCouponToStorage();
+
+    // Disabilita il campo e il pulsante dopo l'uso
+    document.getElementById('coupon-code').disabled = true;
+    document.querySelector('#coupon-container button').disabled = true;
+
+    // Aggiorna la visualizzazione del carrello
+    showCart();
 }
 
 
@@ -151,9 +223,6 @@ function updateQuantity(index, newQuantity) {
 document.getElementById('cart-button').addEventListener('click', showCart);
 document.getElementById('close-cart').addEventListener('click', closeCart);
 
-window.addEventListener('beforeunload', () => {
-    localStorage.removeItem('cart'); // Cancella solo il carrello
-});
 // carica i prodotti dentro localstorage se presente 
 loadCartFromStorage();
 

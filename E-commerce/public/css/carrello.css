@@ -59,3 +59,10 @@
 #close-cart {
     background-color: #dc3545;
 }
+#coupon-container {
+    margin-top: 10px;
+}
+
+#coupon-code {
+    margin-right: 10px;
+}

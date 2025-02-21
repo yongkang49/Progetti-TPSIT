@@ -15,6 +15,7 @@
   <nav class="navbar navbar-light bg-light sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">FORX</a>
+      <a class="" href="">Bundles</a>
       <button id="cart-button">Carrello (0)</button>
     </div>
   </nav>
@@ -45,10 +46,15 @@
   <div id="cart-modal" class="modal">
     <div class="modal-content">
       <h2>Il tuo Carrello</h2>
-      <ul id="cart-items"></ul>
-
-      <button id="checkout-button">Checkout</button>
-      <button id="close-cart">Chiudi</button>
+      <ul id="cart-items">
+      
+      </ul>
+      <div id="coupon-container">
+        <input type="text" id="coupon-code" placeholder="Inserisci codice coupon">
+        <button onclick="applyCoupon()">Applica</button>
+      </div>    
+        <button id="checkout-button">Checkout</button>
+        <button id="close-cart">Chiudi</button>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
