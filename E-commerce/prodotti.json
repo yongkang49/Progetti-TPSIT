@@ -1,0 +1,293 @@
+[
+  {
+    "id": 1,
+    "nome": "Prodotto 1",
+    "prezzo": 119.99,
+    "image": "images/product1.jpg",
+    "materiale": "seta pregiata",
+    "taglio": "S, M, L, XL",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 2,
+    "nome": "Prodotto 2",
+    "prezzo": 339.99,
+    "image": "images/product2.jpg",
+    "materiale": "lana merino",
+    "taglio": "XS, S, M, L",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 3,
+    "nome": "Prodotto 3",
+    "prezzo": 179.99,
+    "image": "images/product3.jpg",
+    "materiale": "cashmere",
+    "taglio": "M, L, XL",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 4,
+    "nome": "Prodotto 4",
+    "prezzo": 219.99,
+    "image": "images/product4.jpg",
+    "materiale": "velluto",
+    "taglio": "S, M, L",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 5,
+    "nome": "Prodotto 5",
+    "prezzo": 319.99,
+    "image": "images/product5_black.jpg",
+    "materiale": "chiffon",
+    "taglio": "XS, S, M, L, XL",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product5_black.jpg"
+      },
+      {
+        "name": "pink",
+        "image": "images/product5_pink.jpg"
+      },
+      {
+        "name": "red",
+        "image": "images/product5_red.jpg"
+      },
+      {
+        "name": "yellow",
+        "image": "images/product5_yellow.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 6,
+    "nome": "Prodotto 6",
+    "prezzo": 249.99,
+    "image": "images/product6_black.jpg",
+    "materiale": "raso",
+    "taglio": "S, M, L",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product5_black.jpg"
+      },
+      {
+        "name": "purple",
+        "image": "images/product6_purple.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 7,
+    "nome": "Prodotto 7",
+    "prezzo": 199.99,
+    "image": "images/product7.jpg",
+    "materiale": "tulle",
+    "taglio": "M, L, XL",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "vestito"
+  },
+  {
+    "id": 8,
+    "nome": "Prodotto 8",
+    "prezzo": 149.99,
+    "image": "images/product8.jpg",
+    "materiale": "denim premium",
+    "taglio": "XS, S, M",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "gonne"
+  },
+  {
+    "id": 9,
+    "nome": "Prodotto 9",
+    "prezzo": 129.99,
+    "image": "images/product9.jpg",
+    "materiale": "pelle italiana",
+    "taglio": "36, 37, 38, 39, 40, 41",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "scarpe"
+  },
+  {
+    "id": 10,
+    "nome": "Prodotto 10",
+    "prezzo": 99.99,
+    "image": "images/product10.jpg",
+    "materiale": "lino",
+    "taglio": "XS, S, M, L",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "gonne"
+  },
+  {
+    "id": 11,
+    "nome": "Prodotto 11",
+    "prezzo": 179.99,
+    "image": "images/product11_black.jpg",
+    "materiale": "tweed",
+    "taglio": "S, M, L",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product11_black.jpg"
+      },
+      {
+        "name": "lead",
+        "image": "images/product11_lead.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "gonne"
+  },
+  {
+    "id": 12,
+    "nome": "Prodotto 12",
+    "prezzo": 79.99,
+    "image": "images/product12_black.jpg",
+    "materiale": "seta plissettata",
+    "taglio": "M, L, XL",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product12_black.jpg"
+      },
+      {
+        "name": "red",
+        "image": "images/product12_red.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "gonne"
+  },
+  {
+    "id": 13,
+    "nome": "Prodotto 13",
+    "prezzo": 69.99,
+    "image": "images/product13_black.jpg",
+    "materiale": "jersey",
+    "taglio": "S, M, L",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product13_black.jpg"
+      },
+      {
+        "name": "white",
+        "image": "images/product13_white.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "gonne"
+  },
+  {
+    "id": 14,
+    "nome": "Prodotto 14",
+    "prezzo": 89.99,
+    "image": "images/product14_black.jpg",
+    "materiale": "viscosa",
+    "taglio": "XS, S, M, L",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product14_black.jpg"
+      },
+      {
+        "name": "white",
+        "image": "images/product14_white.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "gonne"
+  },
+  {
+    "id": 15,
+    "nome": "Prodotto 15",
+    "prezzo": 219.99,
+    "image": "images/product15_black.jpg",
+    "materiale": "pelle scamosciata",
+    "taglio": "37, 38, 39, 40, 41, 42",
+    "colori": [
+      {
+        "name": "black",
+        "image": "images/product15_black.jpg"
+      },
+      {
+        "name": "white",
+        "image": "images/product15_white.jpg"
+      }
+    ],
+    "quantità": "10",
+    "categoria": "scarpe"
+  },
+  {
+    "id": 16,
+    "nome": "Prodotto 16",
+    "prezzo": 129.99,
+    "image": "images/product16.jpg",
+    "materiale": "nappa",
+    "taglio": "35, 36, 37, 38, 39, 40",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "scarpe"
+  },
+  {
+    "id": 17,
+    "nome": "Prodotto 17",
+    "prezzo": 139.99,
+    "image": "images/product17.jpg",
+    "materiale": "pelle verniciata",
+    "taglio": "38, 39, 40, 41, 42, 43",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "scarpe"
+  },
+  {
+    "id": 18,
+    "nome": "Prodotto 18",
+    "prezzo": 219.99,
+    "image": "images/product18.jpg",
+    "materiale": "camoscio",
+    "taglio": "36, 37, 38, 39, 40, 41",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "scarpe"
+  },
+  {
+    "id": 19,
+    "nome": "Prodotto 19",
+    "prezzo": 99.99,
+    "image": "images/product19.jpg",
+    "materiale": "pelle nabuk",
+    "taglio": "37, 38, 39, 40, 41, 42",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "scarpe"
+  },
+  {
+    "id": 20,
+    "nome": "Prodotto 20",
+    "prezzo": 179.99,
+    "image": "images/product20.jpg",
+    "materiale": "vitello",
+    "taglio": "35, 36, 37, 38, 39, 40",
+    "colore": "",
+    "quantità": "10",
+    "categoria": "scarpe"
+  }
+]

@@ -1,0 +1,119 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+.product-img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* product.css */
+
+.product-img {
+  width: 100%;
+  height: auto;
+}
+
+.color-button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  margin-right: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+}
+
+.size-button {
+  padding: 8px 12px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  color: #333;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.size-button:hover {
+  background-color: #f8f9fa;
+  border-color: #333;
+}
+
+.size-button.active {
+  background-color: #333;
+  color: white;
+  border-color: #333;
+}
+
+/* Modifica lo stile del contenitore delle taglie */
+#product-taglio {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.customization-options input[type="text"] {
+  transition: border-color 0.2s;
+}
+
+.customization-options input[type="text"]:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.text-warning {
+  color: #ffc107 !important;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.design-option {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 15px;
+  margin: 5px;
+  border: 1px solid #dee2e6;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.design-option:hover {
+  background-color: #e9ecef;
+}
+
+.design-option.selected {
+  background-color: #0d6efd;
+  color: white;
+  border-color: #0d6efd;
+}
+
+.design-option input {
+  display: none;
+}
