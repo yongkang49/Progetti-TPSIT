@@ -166,7 +166,14 @@ function closeCart() {
 
 // Funzione per aggiungere un prodotto al carrello
 function addToCart(product) {
-    let existingProduct = cart.find(item => item.id === product.id);
+    // Recupera l'immagine attualmente visualizzata (colore selezionato)
+    const currentImage = document.getElementById('product-image').src;
+    
+    // Aggiorna l'immagine del prodotto con quella selezionata
+    product.image = currentImage;
+    
+    // Cerca nel carrello se esiste già questo prodotto con lo stesso colore (ossia stessa immagine)
+    let existingProduct = cart.find(item => item.id === product.id && item.image === product.image);
 
     if (existingProduct) {
         existingProduct.quantita += 1;
@@ -181,6 +188,7 @@ function addToCart(product) {
     // Mostra il modale di conferma
     showConfirmationModal();
 }
+
 function showConfirmationModal() {
     const modal = document.createElement('div');
     modal.innerText = 'Prodotto aggiunto con successo!';
