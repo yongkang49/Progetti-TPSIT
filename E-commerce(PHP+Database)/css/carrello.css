@@ -1,0 +1,190 @@
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+.color-button.active {
+  border: 2px solid #007bff !important;
+  transform: scale(1.1);
+  transition: all 0.2s ease;
+}
+/* Contenuto del carrello centrato */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Lista degli articoli del carrello */
+#cart-items {
+  list-style: none;
+  padding: 0;
+}
+
+/* Stile per ogni elemento del carrello */
+#cart-items li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Miniatura del prodotto */
+#cart-items img {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Pulsanti */
+#checkout-button,
+#close-cart {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#close-cart {
+  background-color: #dc3545;
+}
+
+#coupon-container {
+  margin-top: 10px;
+}
+
+#coupon-code {
+  margin-right: 10px;
+}
+
+.bundle-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.bundle-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bundle-title {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bundle-description {
+  color: #34495e;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.bundle-example {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 20px auto;
+  border-left: 4px solid #17a2b8;
+  text-align: left;
+  max-width: 90%;
+}
+
+.close-bundle-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+.close-bundle-info:hover {
+  color: #333;
+}
+
+/* Centra anche il testo nel carrello che mostra lo sconto bundle */
+#cart-items li .text-success {
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin: 10px 0;
+}
+
+#cart-buttons {
+  margin-top: 1rem;
+}
+
+#checkout-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#checkout-button:hover {
+  background-color: #218838;
+}
+
+#close-cart {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#close-cart:hover {
+  background-color: #5a6268;
+}
