@@ -1,171 +1,246 @@
 <?php
-if(session_status() == PHP_SESSION_NONE)
-{
+if(session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-require 'database/databaseconf.php'; // Assicurati che questo percorso sia corretto
-
-// Funzione per calcolare lo sconto bundle
-function calculateBundleDiscount($cart) {
-    $categories = [];
-    foreach ($cart as $item) {
-        if (!in_array($item['categoria'], $categories)) {
-            $categories[] = $item['categoria'];
-        }
-    }
-
-    if (count($categories) >= 3) {
-        $cheapest = [];
-        foreach ($cart as $id => $item) {
-            if (!isset($cheapest[$item['category']]) || $item['price'] < $cheapest[$item['category']]['price']) {
-                $cheapest[$item['category']] = $item;
-            }
-        }
-
-        if (count($cheapest) >= 3) {
-            $discount = 0;
-            $bundleProducts = array_slice($cheapest, 0, 3);
-            foreach ($bundleProducts as $product) {
-                $discount += $product['price'] * 0.1;
-            }
-            return [
-                'discount' => $discount,
-                'products' => $bundleProducts
-            ];
-        }
-    }
-    return null;
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
 }
 
-// Calcolo totale
-$subtotal = 0;
-$bundleDiscount = 0;
-$couponDiscount = 0;
-$bundleInfo = null;
+// Calcola totali dalla sessione
+$cart = $_SESSION['cart'] ?? [];
+$discountRate = $_SESSION['applied_coupon']['discount'] ?? 0;
 
-if (isset($_SESSION['cart'])) {
-    foreach ($_SESSION['cart'] as $id => $item) {
-        $subtotal += $item['price'] * $item['quantity'];
-    }
-
-    // Applica sconto bundle
-    $bundleData = calculateBundleDiscount($_SESSION['cart']);
-    if ($bundleData) {
-        $bundleDiscount = $bundleData['discount'];
-        $bundleInfo = $bundleData['products'];
-    }
-}
-
-// Applica coupon
-if (isset($_SESSION['coupon'])) {
-    $couponDiscount = ($subtotal - $bundleDiscount) * $_SESSION['coupon'];
-}
-
-$total = $subtotal - $bundleDiscount - $couponDiscount;
-
-// Processa checkout
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_checkout'])) {
-    unset($_SESSION['cart']);
-    unset($_SESSION['coupon']);
-    header('Location: index.php?checkout=success');
-    exit;
-}
+$subtotalLordo = array_reduce($cart, fn($acc, $item) => $acc + ($item['price'] * $item['quantita']), 0);
+$iva = $subtotalLordo * 0.22;
+$discountValue = $subtotalLordo * $discountRate;
+$total = ($subtotalLordo + $iva) - $discountValue;
 ?>
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Checkout</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Forx</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css"/>
+    <style>
+        .original-price { text-decoration: line-through; opacity: 0.7; }
+        .discounted-price { color: #dc3545; font-weight: bold; }
+    </style>
 </head>
-<body>
+<body class="bg-light">
 
 <?php require "Components/header.php"?>
 
-<div class="container my-5">
-    <h1 class="mb-4">Checkout</h1>
+<div class="container py-5">
+    <div class="row g-5">
+        <!-- Sezione Articoli -->
+        <div class="col-lg-8">
+            <h2 class="mb-4">Riepilogo Ordine</h2>
+            <div id="cart-items-container">
+                <!-- Gli articoli verranno inseriti qui via JavaScript -->
+            </div>
 
-    <?php if (empty($_SESSION['cart'])): ?>
-        <div class="alert alert-info">
-            Il carrello è vuoto
-        </div>
-    <?php else: ?>
-        <div id="checkout-container" class="card">
-            <div class="card-body">
-                <ul id="checkout-items" class="list-group mb-3">
-                    <?php foreach ($_SESSION['cart'] as $id => $item): ?>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div class="d-flex align-items-center">
-                                <img src="<?= htmlspecialchars($item['image']) ?>"
-                                     alt="<?= htmlspecialchars($item['name']) ?>"
-                                     class="img-thumbnail me-3"
-                                     style="width:50px; height:50px; object-fit: contain;">
-                                <div>
-                                    <h6 class="mb-0"><?= htmlspecialchars($item['name']) ?></h6>
-                                    <small class="text-muted">
-                                        €<?= number_format($item['price'], 2) ?> x <?= $item['quantity'] ?>
-                                        <?php if (!empty($item['size'])): ?>
-                                            <br>Taglia: <?= htmlspecialchars($item['size']) ?>
-                                        <?php endif; ?>
-                                        <?php if (!empty($item['color'])): ?>
-                                            <br>Colore: <?= htmlspecialchars($item['color']) ?>
-                                        <?php endif; ?>
-                                    </small>
-                                </div>
-                            </div>
-                            <span class="text-muted">
-                            €<?= number_format($item['price'] * $item['quantity'], 2) ?>
-                        </span>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-
-                <div id="summary" class="mb-3">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="lead">Subtotale:</span>
-                        <span class="lead">€<?= number_format($subtotal, 2) ?></span>
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Riepilogo Costi</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotale (escl. IVA):</span>
+                        <span id="checkout-subtotal">€0.00</span>
                     </div>
-
-                    <?php if ($bundleDiscount > 0): ?>
-                        <div class="d-flex justify-content-between text-success mb-2">
-                            <span>Sconto Bundle:</span>
-                            <span>-€<?= number_format($bundleDiscount, 2) ?></span>
+                    <div class="d-flex justify-content-between">
+                        <span>IVA 22%:</span>
+                        <span id="checkout-vat">€0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between text-success">
+                        <span>Sconto:</span>
+                        <span id="checkout-discount">-€0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between fw-bold align-items-center">
+                        <span>Totale:</span>
+                        <div class="text-end">
+                            <div class="original-price small <?= $discountRate > 0 ? '' : 'd-none' ?>">
+                                €<?= number_format($subtotalLordo + $iva, 2) ?>
+                            </div>
+                            <div id="checkout-total" class="text-danger">
+                                €<?= number_format($total, 2) ?>
+                            </div>
                         </div>
-                        <p id="bundle-info-text" class="text-success small">
-                            <strong>Applicato a:</strong><br>
-                            <?php foreach ($bundleInfo as $product): ?>
-                                <?= htmlspecialchars($product['name']) ?> (<?= $product['category'] ?>)<br>
-                            <?php endforeach; ?>
-                        </p>
-                    <?php endif; ?>
-
-                    <?php if ($couponDiscount > 0): ?>
-                        <div class="d-flex justify-content-between text-success mb-2">
-                            <span>Sconto Coupon:</span>
-                            <span>-€<?= number_format($couponDiscount, 2) ?></span>
-                        </div>
-                    <?php endif; ?>
-
-                    <div class="d-flex justify-content-between border-top pt-2">
-                        <strong>Totale:</strong>
-                        <strong>€<?= number_format($total, 2) ?></strong>
                     </div>
                 </div>
-
-                <form method="post">
-                    <button type="submit" name="confirm_checkout" class="btn btn-primary w-100">
-                        Conferma Acquisto
-                    </button>
-                </form>
             </div>
         </div>
-    <?php endif; ?>
+
+        <!-- Sezione Pagamento -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h4 mb-4">Dettagli di Pagamento</h2>
+
+                    <form id="checkout-form">
+                        <!-- Dati Cliente -->
+                        <div class="mb-3">
+                            <label for="fullname" class="form-label">Nome e Cognome</label>
+                            <input type="text" class="form-control" id="fullname" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Indirizzo</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">Città</label>
+                                <input type="text" class="form-control" id="city" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="zip" class="form-label">CAP</label>
+                                <input type="text" class="form-control" id="zip" required>
+                            </div>
+                        </div>
+
+                        <!-- Dati Pagamento -->
+                        <div class="mb-3">
+                            <label for="card-number" class="form-label">Numero Carta</label>
+                            <input type="text" class="form-control" id="card-number" placeholder="4242 4242 4242 4242" required>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-md-6">
+                                <label for="card-expiry" class="form-label">Scadenza</label>
+                                <input type="text" class="form-control" id="card-expiry" placeholder="MM/AA" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="card-cvc" class="form-label">CVC</label>
+                                <input type="text" class="form-control" id="card-cvc" placeholder="123" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Completa l'Ordine</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const discountRate = parseFloat(localStorage.getItem('couponDiscount')) || 0;
+
+        function renderCheckoutItems() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+
+            cart.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'card mb-3';
+                itemEl.innerHTML = `
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="${item.image}" class="img-fluid rounded" alt="${item.name}">
+                            </div>
+                            <div class="col-9">
+                                <h5 class="h6">${item.name}</h5>
+                                ${item.selectedSize ? `<p class="small mb-1">Taglia: ${item.selectedSize}</p>` : ''}
+                                ${item.selectedColor ? `<p class="small mb-1">Colore: ${item.selectedColor}</p>` : ''}
+                                ${item.customization ? `<p class="small mb-1">Personalizzazione: ${item.customization.text || 'Design'}</p>` : ''}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="small">Quantità: ${item.quantita}</span>
+                                    <span class="text-muted">€${(item.price * item.quantita).toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemEl);
+            });
+        }
+
+        function updateTotals() {
+            const subtotalLordo = cart.reduce((sum, item) => sum + (item.price * item.quantita), 0);
+            const ivaRate = 0.22;
+            const subtotalNetto = subtotalLordo / (1 + ivaRate);
+            const vatAmount = subtotalLordo - subtotalNetto;
+            const discountValue = subtotalLordo * discountRate;
+            const originalTotal = subtotalLordo + vatAmount;
+            const total = originalTotal - discountValue;
+
+            // Aggiorna i totali
+            document.getElementById('checkout-subtotal').textContent = `€${subtotalNetto.toFixed(2)}`;
+            document.getElementById('checkout-vat').textContent = `€${vatAmount.toFixed(2)}`;
+            document.getElementById('checkout-discount').textContent = `-€${discountValue.toFixed(2)}`;
+            document.getElementById('checkout-total').textContent = `€${total.toFixed(2)}`;
+
+            // Mostra/nascondi prezzo originale
+            const originalTotalElement = document.getElementById('original-total');
+            if(discountRate > 0) {
+                originalTotalElement.classList.remove('d-none');
+                originalTotalElement.textContent = `€${originalTotal.toFixed(2)}`;
+            } else {
+                originalTotalElement.classList.add('d-none');
+            }
+        }
+
+        // Gestione Submit Ordine
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const orderData = {
+                customer: {
+                    name: document.getElementById('fullname').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    city: document.getElementById('city').value,
+                    zip: document.getElementById('zip').value
+                },
+                cart: cart,
+                total: document.getElementById('checkout-total').textContent
+            };
+
+            try {
+                const res = await fetch('database/confermaAcquisto.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await res.json();
+                if (result.success) {
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('couponDiscount');
+                    window.location.href = 'successo.php';
+                } else {
+                    alert("Errore durante l'acquisto");
+                }
+            } catch (error) {
+                console.log(error);
+                alert("Si è verificato un errore durante il pagamento");
+            }
+        });
+
+        // Inizializzazione
+        if (cart.length === 0) {
+            window.location.href = 'carrello.php';
+        } else {
+            renderCheckoutItems();
+            updateTotals();
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

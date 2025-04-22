@@ -1,6 +1,5 @@
 <?php
-if(session_status() == PHP_SESSION_NONE)
-{
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $config = require 'database/databaseconf.php';
@@ -75,6 +74,20 @@ $basePrice = (float)$prodotto['prezzo'];
 
 // Decidi se mostrare la personalizzazione in base alla categoria
 $showCustomization = ($prodotto['categoria_id'] != 1);
+// Trova la variante corrente
+$varianteCorrente = null;
+foreach ($varianti as $var) {
+    if ($var['id'] == $productId) {
+        $varianteCorrente = $var;
+        break;
+    }
+}
+
+// Estrai taglia e colore dalla variante corrente
+$tagliaCorrente = isset($tagliaMapping[$varianteCorrente['taglia_id']]) ?
+    $tagliaMapping[$varianteCorrente['taglia_id']] :
+    $varianteCorrente['taglia_id'];
+$coloreCorrente = strtolower($varianteCorrente['colore'] ?? '');
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -120,35 +133,43 @@ $showCustomization = ($prodotto['categoria_id'] != 1);
                     <li class="list-group-item">
                         <strong>Taglia:</strong>
                         <span id="product-taglio">
-                            <?php if (!empty($taglie)): ?>
-                                <?php foreach ($taglie as $taglia): ?>
-                                    <button type="button"
-                                            class="btn btn-outline-primary size-button"><?php echo htmlspecialchars($taglia); ?></button>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                Taglia unica
-                            <?php endif; ?>
-                        </span>
+        <?php if (!empty($taglie)): ?>
+            <?php foreach ($taglie as $taglia): ?>
+                <button type="button"
+                        class="btn btn-outline-primary size-button <?= $taglia === $tagliaCorrente ? 'active' : '' ?>"
+                        data-taglia-id="<?= array_search($taglia, $tagliaMapping) ?>">
+                    <?= htmlspecialchars($taglia) ?>
+                </button>
+            <?php endforeach; ?>
+        <?php else: ?>
+            Taglia unica
+        <?php endif; ?>
+    </span>
                     </li>
+
                     <li class="list-group-item">
                         <strong>Colore:</strong>
                         <div id="product-colore" class="d-flex flex-wrap">
                             <?php if (!empty($colori)): ?>
                                 <?php foreach ($colori as $colore): ?>
                                     <?php
-                                    // Trova l'immagine per la variante di quel colore
                                     $immagineColore = '';
+                                    $variantId = '';
                                     foreach ($varianti as $var) {
-                                        if (!empty($var['colore']) && strtolower($var['colore']) === strtolower($colore)) {
+                                        if (strtolower($var['colore']) === strtolower($colore) &&
+                                            $tagliaMapping[$var['taglia_id']] === $tagliaCorrente) {
                                             $immagineColore = $var['immagine'];
+                                            $variantId = $var['id'];
                                             break;
                                         }
                                     }
                                     ?>
-                                    <button type="button" class="color-button"
-                                            style="background-color: <?php echo htmlspecialchars($colore); ?>;"
-                                            title="<?php echo htmlspecialchars($colore); ?>"
-                                            data-image="<?php echo htmlspecialchars($immagineColore); ?>"></button>
+                                    <button type="button"
+                                            class="color-button <?= strtolower($colore) === $coloreCorrente ? 'active' : '' ?>"
+                                            style="background-color: <?= htmlspecialchars($colore) ?>"
+                                            title="<?= htmlspecialchars($colore) ?>"
+                                            data-image="<?= htmlspecialchars($immagineColore) ?>"
+                                            data-variant-id="<?= $variantId ?>"></button>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <span class="text-muted">Colore unico</span>
@@ -167,7 +188,7 @@ $showCustomization = ($prodotto['categoria_id'] != 1);
     </div>
 </div>
 
-<script src="js/carrello.js"></script>
+
 <script>
     let basePrice = <?= $basePrice ?>;
     let customizationPrice = 0;
@@ -207,22 +228,19 @@ $showCustomization = ($prodotto['categoria_id'] != 1);
     document.getElementById('add-to-cart').addEventListener('click', function () {
         // Validazione selezioni
         const errorMessages = [];
-
         if (document.querySelectorAll('.size-button').length > 0 && !getSelectedSize()) {
             errorMessages.push('Seleziona una taglia');
         }
-
         if (document.querySelectorAll('.color-button').length > 0 && !getSelectedColor()) {
             errorMessages.push('Seleziona un colore');
         }
-
         if (showCustomization) {
             const customization = getCustomization();
+            console.log(customization);
             if (customization.type !== 'none' && !customization.design && !customization.text) {
                 errorMessages.push('Completa la personalizzazione');
             }
         }
-
         if (errorMessages.length > 0) {
             showMessage(errorMessages.join(' | '), 3000, '#dc3545');
             return;
@@ -236,11 +254,46 @@ $showCustomization = ($prodotto['categoria_id'] != 1);
             selectedSize: getSelectedSize(),
             selectedColor: getSelectedColor(),
             customization: getCustomization(),
-            price: basePrice + customizationPrice
+            price: basePrice + customizationPrice,
+            quantita: 1      // ← aggiungi questa riga
         };
         showMessage('Prodotto aggiunto con successo', 3000, 'green');
         addToCart(product);
     });
+
+    // Utility per confrontare la personalizzazione
+    function areCustomizationsEqual(c1, c2) {
+        if (c1.type !== c2.type) return false;
+
+        if (c1.type === 'text') {
+            // confronta il testo (trim per evitare spazi superflui)
+            return c1.text.trim() === c2.text.trim();
+        }
+
+        if (c1.type === 'image') {
+            // confronta l'URL/design selezionato
+            return c1.design === c2.design;
+        }
+
+        // tipo 'none'
+        return true;
+    }
+
+    function addToCart(product) {
+        // 1) Leggi il carrello corrente o crea array vuoto
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const idx = cart.findIndex(item =>
+            item.name === product.name &&
+            item.selectedColor === product.selectedColor &&
+            areCustomizationsEqual(item.customization, product.customization)
+        );
+        if (idx > -1) {
+            cart[idx].quantita += product.quantita;
+        } else {
+            cart.push(product);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
 
     // Funzione per mostrare un messaggio al centro dello schermo per un certo periodo (in millisecondi)
     function showMessage(message, duration, colore) {
@@ -349,6 +402,35 @@ $showCustomization = ($prodotto['categoria_id'] != 1);
                 button.style.border = '2px solid #007bff';
                 const newImage = button.getAttribute('data-image');
                 if (newImage) document.getElementById('product-image').src = newImage;
+            });
+        });
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+        // Gestione cambio taglia
+        document.querySelectorAll(".size-button").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const tagliaId = btn.dataset.tagliaId;
+                const coloreSelezionato = document.querySelector('.color-button.active')?.title.toLowerCase();
+
+                // Cerca la variante corrispondente
+                const variante = <?= json_encode($varianti) ?>.find(v => {
+                    return v.taglia_id == tagliaId &&
+                        (!coloreSelezionato || v.colore?.toLowerCase() === coloreSelezionato);
+                });
+
+                if (variante && variante.id != <?= $productId ?>) {
+                    window.location.href = `?id=${variante.id}`;
+                }
+            });
+        });
+
+        // Gestione cambio colore
+        document.querySelectorAll('.color-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const variantId = button.dataset.variantId;
+                if (variantId && variantId != <?= $productId ?>) {
+                    window.location.href = `?id=${variantId}`;
+                }
             });
         });
     });

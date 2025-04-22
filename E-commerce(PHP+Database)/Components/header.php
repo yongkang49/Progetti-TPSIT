@@ -9,7 +9,7 @@
                 <i class="fas fa-info-circle"></i> Info Bundle
             </button>
             <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cart-modal">
-                Carrello (<?= array_sum(array_column($_SESSION['cart'], 'quantity')) ?>)
+                <i class="fas fa-shopping-cart"></i>
             </button>
             <?php if (!isset($_SESSION['user_id'])): ?>
                 <a href="login.php" class="btn btn-outline-primary ms-2">Accedi</a>
